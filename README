@@ -1,0 +1,118 @@
+stegotools by Eduardo Sztokbant <du@du.eti.br>
+----------------------------------------------
+
+0. README HISTORY
+
+1. LATEST RELEASE
+
+2. BUILD
+
+3. TEST
+
+4. USE
+  4.1 stegwrite
+  4.2 stegread
+  
+5. LICENSE
+
+
+--------------------------------------------------------------------------
+
+0. README HISTORY
+
+  revision 3 - 2005-07-06
+
+    Added information about the possibility of n_last_bits being 4.
+
+  revision 2 - 2005-07-05
+
+    Added information for number of last bits.
+
+  revision 1 - 2005-06-16
+
+    Documentation is like sex: when it is good, it is very, very good; and
+    when it is bad, it is better than nothing.
+                    -- Dick Brandon
+
+1. LATEST RELEASE
+
+  http://sourceforge.net/projects/stegotools/
+
+
+2. BUILD
+
+  Issue the command "make" from the directory containing the Makefile and
+  both stegread and stegwrite will be built.
+
+
+3. TEST
+
+  After building them it's a good idea to run the suite of tests I myself
+  prepared to verify if the binaries are working well. Just run "make test"
+  for it.
+
+
+4. USE
+
+  4.1 stegwrite
+
+  stegwrite as you could guess is the writing program. It receives
+  information from the standard input, a reference to an existing BMP
+  file and a name for your desired output stego-BMP.
+
+  Example:
+
+    cat my_very_secret_file.txt | ./stegwrite my_girl.bmp stego-my_girl.bmp 1
+
+  This will hide the content of "my_very_secret_file.txt" into the file
+  "stego-my_girl.bmp", that will be virtually identical to "my_girl.bmp".
+
+  The last parameter passed to stegwrite ("1") is the number of last
+  bits of my_girl.bmp that will be used to hide your data. This value
+  can only be 1, 2 or 4. Note that the more bits you assign, more data
+  you can hide. However, you will lose more image details.
+
+  In case there is not enough space in my_girl.bmp to hide all the content
+  of "my_very_secret_file.txt" the information will be truncated. This means 
+  not all of its content will be saved into "stego-my_girl.bmp". Don't worry,
+  stegwrite will warn you.
+
+
+  4.2 stegread
+  
+  stegread does exactly the opposite of stegwrite: it reads hidden
+  information from a stego-BMP file and writes it in the standard output.
+  It's a good idea to redirect this output to another file using the
+  shell operator ">".
+
+  Example:
+
+    ./stegread stego-my_girl.bmp 1 > my_very_secret_file-recovered.txt
+
+  This will read the information hidden in "stego-my_girl.bmp" and save it
+  into "my_very_secret_file-recovered.txt". Easy, huh?
+
+  The last parameter passed to stegread ("1") is the number of last bits
+  of stego-my_girl.bmp that were used to hide data. This value can only
+  be 1, 2 or 4.
+
+  Well, I think this is enough. You should make your own experiments now ;)
+
+
+5. LICENSE
+
+  stegotools is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 2 of the License, or
+  (at your option) any later version.
+  
+  stegotools is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+  
+  You should have received a copy of the GNU General Public License
+  along with stegotools; if not, write to the Free Software
+  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+
+  For more details, see the file COPYING.
